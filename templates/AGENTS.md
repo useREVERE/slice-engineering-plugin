@@ -24,6 +24,10 @@ a gate: fix correctness and missing coverage; do not loop on preferences.
 
 Do not store team knowledge only in agent memory. Put durable facts in the
 homes named under `knowledge_homes` in `.slice-engineering/config.yaml`.
+How to choose a home: `docs/sops/documentation-placement.md`. How to
+slice work: `docs/engineering-philosophy.md`. Host handbook:
+`docs/engineering-guide.md`. The Slice Engineering loop stays in the
+plugin — do not copy it into this repo.
 
 ## Secrets
 

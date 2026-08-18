@@ -63,7 +63,10 @@ In any host project:
 ```
 
 That writes `.slice-engineering/config.yaml` — the bindings file that tells
-every skill how *this* repo tests, ships, and records work. Do not skip it.
+every skill how *this* repo tests, ships, and records work — and copies
+missing documentation homes from `templates/docs/` (philosophy, engineering
+guide skeleton, documentation-placement, empty SOP/ADR/changelog/tech-debt
+directories). Existing docs are left alone. Do not skip it.
 
 ## Philosophy
 
@@ -102,7 +105,7 @@ brief → review-brief → deliver
 
 | Skill | Purpose |
 | --- | --- |
-| [`/se-setup`](skills/se-setup/SKILL.md) | Bind this repo: test command, default branch, ship mode, ledger |
+| [`/se-setup`](skills/se-setup/SKILL.md) | Bind this repo and scaffold missing docs homes |
 | [`/se-brief`](skills/se-brief/SKILL.md) | Shape one thin slice as a quick brief or a durable ledger arc |
 | [`/se-review-brief`](skills/se-review-brief/SKILL.md) | Pressure-test a brief for plan-readiness or delivery-record fidelity |
 | [`/se-plan`](skills/se-plan/SKILL.md) | Write a throwaway implementation plan for one slice |

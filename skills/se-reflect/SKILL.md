@@ -53,6 +53,7 @@ concurrent edit is visible in `git status` / diff before you save.
 
 ## Knowledge promotion
 
+Follow `docs/sops/documentation-placement.md` when that file exists.
 For each durable fact, choose the narrowest home in `knowledge_homes`:
 
 - always-on agent rule → `agent_rules`

@@ -70,10 +70,17 @@ Typical homes:
 | Knowledge | Default home |
 | --- | --- |
 | Always-on agent rules | `AGENTS.md` |
+| How we slice | `docs/engineering-philosophy.md` |
+| Commands, architecture, testing, deploy | `docs/engineering-guide.md` |
 | Repeatable procedures | `docs/sops/` |
 | Architectural decisions | `docs/adrs/` |
 | Shipped capability narrative | `docs/completed/changelog.md` |
 | Queue, frontier, delivery record | ledger (`docs/ledger/` by default) |
+| Review findings | `docs/tech-debt/` |
+
+`/se-setup` scaffolds these homes from `templates/docs/` when they are
+missing. It never overwrites a host file that already exists. The
+placement procedure itself is `docs/sops/documentation-placement.md`.
 
 `/se-reflect` writes evidence to the ledger and promotes only the facts that
 belong in a broader home. It does not create a parallel `docs/solutions/`

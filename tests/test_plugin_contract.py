@@ -29,6 +29,30 @@ class PluginContractTests(unittest.TestCase):
         self.assertIn("templates/config.yaml", text)
         self.assertIn(".slice-engineering/config.yaml", text)
 
+    def test_setup_scaffolds_docs_without_overwriting(self) -> None:
+        text = (ROOT / "skills" / "se-setup" / "SKILL.md").read_text()
+        self.assertIn("templates/docs/README.md", text)
+        self.assertIn("Never overwrite", text)
+        self.assertIn("docs/engineering-philosophy.md", text)
+        self.assertIn("docs/engineering-guide.md", text)
+        self.assertIn("documentation-placement.md", text)
+        self.assertIn("do not invent a stack", text)
+
+    def test_doc_templates_are_host_agnostic(self) -> None:
+        philosophy = (
+            ROOT / "templates" / "docs" / "engineering-philosophy.md"
+        ).read_text()
+        self.assertIn("thin vertical slices", philosophy)
+        self.assertNotIn("Revere", philosophy)
+        placement = (
+            ROOT / "templates" / "docs" / "sops" / "documentation-placement.md"
+        ).read_text()
+        self.assertIn("knowledge_homes", placement)
+        self.assertIn("bound ledger", placement)
+        guide = (ROOT / "templates" / "docs" / "engineering-guide.md").read_text()
+        self.assertIn("se-setup:", guide)
+        self.assertIn("documentation-placement.md", guide)
+
     def test_deliver_does_not_absorb_phase_skills(self) -> None:
         text = (ROOT / "skills" / "se-deliver" / "SKILL.md").read_text()
         for name in (

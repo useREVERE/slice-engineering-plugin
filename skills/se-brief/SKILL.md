@@ -71,7 +71,8 @@ If the request is larger than one session, split it and put only the first
 increment on the frontier. Invoke `se-challenge-scope` when the proposal
 looks over-built.
 
-Ground in the host's `AGENTS.md` and engineering docs. Search the codebase
+Ground in the host's `AGENTS.md`, `docs/engineering-philosophy.md`, and
+`docs/engineering-guide.md` when those files exist. Search the codebase
 for the existing seam before inventing a new one.
 
 ## Output

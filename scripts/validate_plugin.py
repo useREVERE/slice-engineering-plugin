@@ -36,6 +36,28 @@ REQUIRED_CONFIG_KEYS = {
     "worktrees",
     "knowledge_homes",
 }
+REQUIRED_KNOWLEDGE_HOMES = {
+    "agent_rules",
+    "philosophy",
+    "guide",
+    "procedures",
+    "decisions",
+    "shipped",
+    "queue",
+    "debt",
+}
+REQUIRED_DOC_TEMPLATES = (
+    "templates/docs/README.md",
+    "templates/docs/engineering-philosophy.md",
+    "templates/docs/engineering-guide.md",
+    "templates/docs/sops/README.md",
+    "templates/docs/sops/documentation-placement.md",
+    "templates/docs/adrs/README.md",
+    "templates/docs/adrs/TEMPLATE.md",
+    "templates/docs/completed/changelog.md",
+    "templates/docs/tech-debt/README.md",
+    "templates/docs/ledger/README.md",
+)
 MANIFESTS = (
     ROOT / "plugin.json",
     ROOT / ".cursor-plugin" / "plugin.json",
@@ -143,6 +165,28 @@ def validate_template() -> None:
     missing = [key for key in REQUIRED_CONFIG_KEYS if f"{key}:" not in template]
     if missing:
         fail(f"templates/config.yaml missing keys: {missing}")
+    homes_missing = [
+        key for key in REQUIRED_KNOWLEDGE_HOMES if f"{key}:" not in template
+    ]
+    if homes_missing:
+        fail(f"templates/config.yaml missing knowledge_homes: {homes_missing}")
+    for relative in REQUIRED_DOC_TEMPLATES:
+        path = ROOT / relative
+        if not path.is_file():
+            fail(f"missing doc template {relative}")
+    philosophy = (ROOT / "templates/docs/engineering-philosophy.md").read_text()
+    if re.search(r"\bRevere\b", philosophy):
+        fail("engineering-philosophy template must not name Revere")
+    placement = (ROOT / "templates/docs/sops/documentation-placement.md").read_text()
+    if "revere-ledger" in placement:
+        fail("documentation-placement must use bound ledger paths")
+    if "knowledge_homes" not in placement:
+        fail("documentation-placement must mention knowledge_homes")
+    setup = (ROOT / "skills/se-setup/SKILL.md").read_text()
+    if "Never overwrite" not in setup:
+        fail("se-setup must refuse to overwrite existing host docs")
+    if "templates/docs/README.md" not in setup:
+        fail("se-setup must treat templates/docs/README.md as the inventory")
 
 
 def validate_forbidden() -> None:

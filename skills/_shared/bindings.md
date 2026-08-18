@@ -35,7 +35,20 @@ review may continue with git-derived defaults: the default branch from
 | `ledger_root` | Repo-relative ledger directory | `docs/ledger` |
 | `external_ledger_path` | Absolute or `~/` path to an external ledger checkout | empty |
 | `worktrees` | Whether delivery uses git worktrees | `false` |
-| `knowledge_homes` | Map of knowledge kinds to paths | see template |
+| `knowledge_homes` | Map of knowledge kinds to paths | see below |
+
+### `knowledge_homes`
+
+| Key | Default path | What belongs there |
+| --- | --- | --- |
+| `agent_rules` | `AGENTS.md` | Always-on agent rules |
+| `philosophy` | `docs/engineering-philosophy.md` | How we slice and challenge scope |
+| `guide` | `docs/engineering-guide.md` | Commands, architecture, testing, deploy |
+| `procedures` | `docs/sops` | Repeatable SOPs |
+| `decisions` | `docs/adrs` | Architecture decision records |
+| `shipped` | `docs/completed/changelog.md` | Capability narrative |
+| `queue` | `docs/ledger` | Briefs, frontiers, delivery records |
+| `debt` | `docs/tech-debt` | Review findings and remediation |
 
 ## Ledger paths
 

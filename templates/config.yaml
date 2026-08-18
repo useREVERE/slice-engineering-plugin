@@ -15,7 +15,10 @@ worktrees: false
 
 knowledge_homes:
   agent_rules: AGENTS.md
+  philosophy: docs/engineering-philosophy.md
+  guide: docs/engineering-guide.md
   procedures: docs/sops
   decisions: docs/adrs
   shipped: docs/completed/changelog.md
   queue: docs/ledger
+  debt: docs/tech-debt
