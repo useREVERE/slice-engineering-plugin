@@ -10,6 +10,9 @@ other projects will run.
 - Skills that need a host fact read `.slice-engineering/config.yaml` via
   `skills/_shared/bindings.md`. Do not hardcode a product's test command,
   default branch, deploy probe, or ledger path.
+- Host documentation templates live in `templates/docs/`. `/se-setup`
+  copies them only when the destination is missing. Do not add product
+  runbooks there.
 - Do not add Revere product skills, Render runbooks, or private ledger paths.
 - Side-effect skills use `disable-model-invocation: true` unless the skill
   is meant to fire from inside another workflow (for example `se-commit`).

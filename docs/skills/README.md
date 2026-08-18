@@ -7,7 +7,7 @@ the map.
 
 | Skill | Side effects | Notes |
 | --- | --- | --- |
-| `se-setup` | Yes | First command in a host repo |
+| `se-setup` | Yes | Bindings + missing doc homes |
 | `se-brief` | Optional write | Conversation or ledger |
 | `se-review-brief` | No | Plan-readiness |
 | `se-plan` | Temp write | Discarded after ship |

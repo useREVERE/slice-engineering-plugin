@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0
+
+Host documentation scaffolding.
+
+- `/se-setup` copies missing philosophy, engineering-guide, documentation-placement, and empty SOP/ADR/changelog/tech-debt/ledger homes
+- Existing host docs are never overwritten
+- `knowledge_homes` now names philosophy, guide, and debt paths
+
 ## 0.1.0
 
 First public release.
