@@ -1,0 +1,14 @@
+---
+description: Thin-slice agentic development — brief, review gate, reflect
+alwaysApply: true
+---
+
+This project may use Slice Engineering. If `.slice-engineering/config.yaml`
+exists, follow it.
+
+- Prefer one thin vertical slice: one behavior, explicit exclusions, independently testable.
+- Durable work belongs in a ledger brief with a named frontier. Plans are temporary.
+- Treat review as a ship gate. Fresh context. Do not loop on style preferences.
+- Tests specify behavior. Do not ship a behavior change with no executable spec unless the host bindings say the change is docs-only or mechanical.
+- Promote durable knowledge to the homes in the bindings file. Do not keep team facts only in chat memory.
+- Read `skills/_shared/bindings.md` before assuming how this repo tests or ships.
