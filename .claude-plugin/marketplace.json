@@ -1,0 +1,29 @@
+{
+  "name": "slice-engineering-plugin",
+  "owner": {
+    "name": "Revere"
+  },
+  "metadata": {
+    "description": "Plugin marketplace for Claude Code and Codex extensions",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "slice-engineering",
+      "description": "Brief thin slices, deliver through a review gate, and reflect so the next frontier is ready",
+      "author": {
+        "name": "Revere"
+      },
+      "homepage": "https://github.com/useREVERE/slice-engineering-plugin",
+      "tags": [
+        "slice-engineering",
+        "thin-slices",
+        "workflow-automation",
+        "code-review",
+        "tdd",
+        "knowledge-management"
+      ],
+      "source": "./"
+    }
+  ]
+}

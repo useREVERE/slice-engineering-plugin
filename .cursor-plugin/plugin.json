@@ -1,0 +1,23 @@
+{
+  "name": "slice-engineering",
+  "displayName": "Slice Engineering",
+  "version": "0.1.0",
+  "description": "Brief thin slices, deliver through a review gate, and reflect so the next frontier is ready",
+  "author": {
+    "name": "Revere"
+  },
+  "homepage": "https://github.com/useREVERE/slice-engineering-plugin",
+  "repository": "https://github.com/useREVERE/slice-engineering-plugin",
+  "license": "MIT",
+  "keywords": [
+    "cursor",
+    "plugin",
+    "slice-engineering",
+    "thin-slices",
+    "workflow-automation",
+    "code-review",
+    "tdd",
+    "knowledge-management"
+  ],
+  "logo": "assets/logo.svg"
+}
