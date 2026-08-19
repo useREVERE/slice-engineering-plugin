@@ -66,7 +66,8 @@ That writes `.slice-engineering/config.yaml` — the bindings file that tells
 every skill how *this* repo tests, ships, and records work — and copies
 missing documentation homes from `templates/docs/` (philosophy, engineering
 guide skeleton, documentation-placement, empty SOP/ADR/changelog/tech-debt
-directories). Existing docs are left alone. Do not skip it.
+homes including the remediation queue). Existing docs are left alone. Do
+not skip it.
 
 ## Philosophy
 
@@ -101,6 +102,9 @@ brief → review-brief → deliver
                           ├─ review-loop   (fresh-context gate)
                           ├─ ship          (bindings)
                           └─ reflect       (evidence + next frontier)
+
+weekly:  review-codebase  →  (pause)  →  dated report + plan
+         deliver-remediation-plan     →  one se-deliver per pending item
 ```
 
 | Skill | Purpose |
@@ -121,6 +125,8 @@ brief → review-brief → deliver
 | [`/se-investigate`](skills/se-investigate/SKILL.md) | Evidence-driven diagnosis with a deliver-ready handoff |
 | [`/se-prototype`](skills/se-prototype/SKILL.md) | Throwaway prototype to answer a state or UI question |
 | [`/se-create-skill`](skills/se-create-skill/SKILL.md) | Author a new skill without recreating provider drift |
+| [`/se-review-codebase`](skills/se-review-codebase/SKILL.md) | Farley-lens sweep: dated report, pause, then remediation plan |
+| [`/se-deliver-remediation-plan`](skills/se-deliver-remediation-plan/SKILL.md) | Drain the pending queue, one `/se-deliver` per item |
 
 A small, low-risk change may skip the durable ledger and use a
 conversation-scoped brief. `/se-deliver` still runs the same gates.
@@ -146,6 +152,16 @@ When the input is a bug rather than a new behavior:
 /se-investigate checkout creates duplicate invoices
 /se-deliver
 ```
+
+Once a week, to keep the tree changeable:
+
+```text
+/se-review-codebase
+/se-deliver-remediation-plan
+```
+
+The review pauses before writing `remediation-plan.md`. Drain the queue
+only after that triage.
 
 ## What this plugin does not include
 

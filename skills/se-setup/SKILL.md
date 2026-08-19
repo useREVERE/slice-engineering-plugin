@@ -72,6 +72,8 @@ For each missing file:
 | `docs/adrs/TEMPLATE.md` | `templates/docs/adrs/TEMPLATE.md` |
 | `docs/completed/changelog.md` | `templates/docs/completed/changelog.md` |
 | `docs/tech-debt/README.md` | `templates/docs/tech-debt/README.md` |
+| `docs/tech-debt/remediation-plan.md` | `templates/docs/tech-debt/remediation-plan.md` |
+| `docs/tech-debt/remediation-history.md` | `templates/docs/tech-debt/remediation-history.md` |
 | `<ledger_root>/README.md` | `templates/docs/ledger/README.md` — only if `ledger` is `in-repo` |
 
 Do not create a sample ledger arc. Do not copy plugin `CONCEPTS.md` or
@@ -107,5 +109,6 @@ Report:
 - bindings written or left alone, with detection evidence
 - each doc path created
 - each doc path skipped because it already existed
-- the next command: `/se-brief` for new work or `/se-deliver` if a
-  frontier already exists
+- the next command: `/se-brief` for new work, `/se-deliver` if a
+  frontier already exists, or `/se-review-codebase` for the weekly
+  changeability loop

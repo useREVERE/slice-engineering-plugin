@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.3.0
+
+Weekly changeability loop.
+
+- `/se-review-codebase` — Farley-lens sweep, dated report, pause before
+  writing the remediation plan
+- `/se-deliver-remediation-plan` — one `/se-deliver` per pending item
+- `/se-setup` copies missing `remediation-plan.md` and
+  `remediation-history.md` (never overwrites an existing queue)
+
 ## 0.2.0
 
 Host documentation scaffolding.

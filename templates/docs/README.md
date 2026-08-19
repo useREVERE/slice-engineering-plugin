@@ -13,6 +13,8 @@ is missing. It never overwrites a file that already exists.
 | `adrs/TEMPLATE.md` | `docs/adrs/TEMPLATE.md` | Missing |
 | `completed/changelog.md` | `docs/completed/changelog.md` | Missing |
 | `tech-debt/README.md` | `docs/tech-debt/README.md` | Missing |
+| `tech-debt/remediation-plan.md` | `docs/tech-debt/remediation-plan.md` | Missing. Queue contract for `/se-deliver-remediation-plan`. **Never overwrite** an existing plan. |
+| `tech-debt/remediation-history.md` | `docs/tech-debt/remediation-history.md` | Missing. Closed-item archive. **Never overwrite**. |
 | `ledger/README.md` | `<ledger_root>/README.md` | Missing and `ledger` is `in-repo` |
 
 Do not copy plugin `CONCEPTS.md` or skill files into the host. Workflow

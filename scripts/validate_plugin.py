@@ -56,6 +56,8 @@ REQUIRED_DOC_TEMPLATES = (
     "templates/docs/adrs/TEMPLATE.md",
     "templates/docs/completed/changelog.md",
     "templates/docs/tech-debt/README.md",
+    "templates/docs/tech-debt/remediation-plan.md",
+    "templates/docs/tech-debt/remediation-history.md",
     "templates/docs/ledger/README.md",
 )
 MANIFESTS = (
@@ -187,6 +189,33 @@ def validate_template() -> None:
         fail("se-setup must refuse to overwrite existing host docs")
     if "templates/docs/README.md" not in setup:
         fail("se-setup must treat templates/docs/README.md as the inventory")
+    if "remediation-plan.md" not in setup:
+        fail("se-setup must copy missing remediation-plan.md")
+    if "remediation-history.md" not in setup:
+        fail("se-setup must copy missing remediation-history.md")
+
+
+def validate_weekly_loop() -> None:
+    review = (ROOT / "skills/se-review-codebase/SKILL.md").read_text()
+    if "Then stop" not in review:
+        fail("se-review-codebase must pause before writing the plan")
+    if "remediation-plan.md" not in review:
+        fail("se-review-codebase must update remediation-plan.md")
+    if "origin/main" in review or "render.yaml" in review:
+        fail("se-review-codebase must not hardcode origin/main or render.yaml")
+    deliver = (ROOT / "skills/se-deliver-remediation-plan/SKILL.md").read_text()
+    if "se-deliver" not in deliver:
+        fail("se-deliver-remediation-plan must run se-deliver per item")
+    if "origin/main" in deliver or "render.yaml" in deliver:
+        fail(
+            "se-deliver-remediation-plan must not hardcode origin/main "
+            "or render.yaml"
+        )
+    conventions = (ROOT / "skills/_shared/agent-conventions.md").read_text()
+    if "Goal mode" not in conventions:
+        fail("agent-conventions must define Goal mode")
+    if "Assessor label" not in conventions:
+        fail("agent-conventions must define Assessor label")
 
 
 def validate_forbidden() -> None:
@@ -207,6 +236,7 @@ def main() -> None:
     names = validate_skills()
     validate_catalog(names)
     validate_template()
+    validate_weekly_loop()
     validate_forbidden()
     print(f"ok {len(names)} skills, version {version}")
     return 0

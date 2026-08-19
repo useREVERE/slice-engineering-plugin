@@ -36,6 +36,8 @@ class PluginContractTests(unittest.TestCase):
         self.assertIn("docs/engineering-philosophy.md", text)
         self.assertIn("docs/engineering-guide.md", text)
         self.assertIn("documentation-placement.md", text)
+        self.assertIn("docs/tech-debt/remediation-plan.md", text)
+        self.assertIn("docs/tech-debt/remediation-history.md", text)
         self.assertIn("do not invent a stack", text)
 
     def test_doc_templates_are_host_agnostic(self) -> None:
@@ -69,6 +71,33 @@ class PluginContractTests(unittest.TestCase):
         text = (ROOT / "skills" / "se-review" / "SKILL.md").read_text()
         self.assertIn("Do not edit code", text)
         self.assertIn("ship it", text)
+
+    def test_review_codebase_pauses_before_writing_the_plan(self) -> None:
+        text = (ROOT / "skills" / "se-review-codebase" / "SKILL.md").read_text()
+        self.assertIn("Then stop", text)
+        self.assertIn("remediation-plan.md", text)
+        self.assertNotIn("origin/main", text)
+        self.assertNotIn("render.yaml", text)
+        self.assertIn("se-challenge-scope", text)
+
+    def test_deliver_remediation_plan_runs_se_deliver_per_item(self) -> None:
+        text = (
+            ROOT / "skills" / "se-deliver-remediation-plan" / "SKILL.md"
+        ).read_text()
+        self.assertIn("se-deliver", text)
+        self.assertIn("one at a time", text)
+        self.assertNotIn("origin/main", text)
+        self.assertNotIn("render.yaml", text)
+        self.assertIn("se-review-codebase", text)
+
+    def test_remediation_plan_template_is_a_queue_contract(self) -> None:
+        text = (
+            ROOT / "templates" / "docs" / "tech-debt" / "remediation-plan.md"
+        ).read_text()
+        self.assertIn("How to use this file", text)
+        self.assertIn("Pending Refactors", text)
+        self.assertIn("remediation-history.md", text)
+        self.assertNotIn("origin/main", text)
 
 
 if __name__ == "__main__":

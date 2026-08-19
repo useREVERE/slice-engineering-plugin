@@ -20,11 +20,13 @@ the map.
 
 ## Around the loop
 
-| Skill | Side effects |
-| --- | --- |
-| `se-challenge-scope` | No |
-| `se-commit` | Yes |
-| `se-handoff` | Temp write |
-| `se-investigate` | No |
-| `se-prototype` | Write (throwaway) |
-| `se-create-skill` | Yes |
+| Skill | Side effects | Notes |
+| --- | --- | --- |
+| `se-challenge-scope` | No | |
+| `se-commit` | Yes | |
+| `se-handoff` | Temp write | |
+| `se-investigate` | No | |
+| `se-prototype` | Write (throwaway) | |
+| `se-create-skill` | Yes | |
+| `se-review-codebase` | Docs only | Dated report + plan after pause |
+| `se-deliver-remediation-plan` | Yes | One `se-deliver` per pending item |

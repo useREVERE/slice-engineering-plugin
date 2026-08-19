@@ -1,6 +1,6 @@
 {
   "name": "slice-engineering",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Brief thin slices, deliver through a review gate, and reflect so the next frontier is ready",
   "author": {
     "name": "Revere"
@@ -33,7 +33,8 @@
     "defaultPrompt": [
       "Brief the next thin slice",
       "Deliver the frontier",
-      "Review this change as a ship gate"
+      "Review this change as a ship gate",
+      "Review the codebase for changeability"
     ],
     "brandColor": "#C4A574",
     "logo": "./assets/logo.svg"

@@ -7,6 +7,10 @@ prompt or harness.
 | Convention | Codex | Claude Code | Cursor |
 | --- | --- | --- | --- |
 | Skill invocation | `$se-name` | `/se-name` | `/se-name` |
+| Nested skill call | invoke `$se-name` when the harness allows | compose the target `SKILL.md`; do not search for a nested `/` invoke when `disable-model-invocation` is true | compose the target `SKILL.md` when the harness cannot nest skill calls |
+| Goal mode | create a Codex goal for multi-item queues | unavailable — report it and continue under stop rules | unavailable — report it and continue under stop rules |
+| Temp artifacts | runtime temp or task worktree | `~/.claude/` (sandbox may block `/tmp` and paths outside the repo) | workspace temp or `.cursor/` — not a guessed `/tmp` |
+| Assessor label | `Codex ({model})` | `Claude Code ({model})` | `Cursor ({model})` |
 | Task branch prefix | `codex/` | `claude/` | `cursor/` |
 | Task worktree root | `~/.codex/worktrees/<id>/` | `.claude/worktrees/<name>/` | `.cursor/worktrees/<name>/` |
 | Grounding docs | `AGENTS.md` | `CLAUDE.md` + `AGENTS.md` | `AGENTS.md` |
