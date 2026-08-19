@@ -106,3 +106,20 @@ ship) → reflect into the host's knowledge map.
 Use Compound Engineering if you want a large catalog and a solutions corpus.
 Use Slice Engineering if you want a small closed loop, compositional skills,
 and a ship gate.
+
+## Weekly changeability loop
+
+Thin slices keep *new* work small. They do not by themselves stop a tree
+from accumulating coupling, dead paths, and tests that no longer specify
+behavior. `/se-review-codebase` and `/se-deliver-remediation-plan` are
+the maintenance loop:
+
+1. Assess changeability against Farley's dimensions. Incremental when a
+   recent review exists; full when it does not.
+2. Pause. The dated report and `remediation-plan.md` are written only
+   after triage — the reviewer does not quietly queue deletions.
+3. Deliver each pending item as its own `/se-deliver` slice. Invalidated
+   premises fold back into the review skill's vetting rules.
+
+The debt home is a queue, not a solutions corpus. Findings that are
+really product work go on a ledger frontier instead.
