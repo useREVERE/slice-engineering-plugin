@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.4.0
+
+Evidence-backed skill improvement.
+
+- `/se-improve-skill-from-run` — two-phase review-then-apply from one
+  real run (Claude JSONL exporter, Codex recorder if present, Cursor
+  current conversation)
+- Does not require Entire or a product session store
+
 ## 0.3.0
 
 Weekly changeability loop.
