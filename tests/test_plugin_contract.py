@@ -39,6 +39,8 @@ class PluginContractTests(unittest.TestCase):
         self.assertIn("docs/tech-debt/remediation-plan.md", text)
         self.assertIn("docs/tech-debt/remediation-history.md", text)
         self.assertIn("do not invent a stack", text)
+        self.assertIn("templates/CLAUDE.md", text)
+        self.assertIn("CLAUDE.md", text)
 
     def test_doc_templates_are_host_agnostic(self) -> None:
         philosophy = (
@@ -58,7 +60,8 @@ class PluginContractTests(unittest.TestCase):
     def test_deliver_does_not_absorb_phase_skills(self) -> None:
         text = (ROOT / "skills" / "se-deliver" / "SKILL.md").read_text()
         for name in (
-            "se-plan",
+            "se-plan-loop",
+            "se-review-plan",
             "se-execute",
             "se-review-loop",
             "se-ship",
@@ -66,6 +69,64 @@ class PluginContractTests(unittest.TestCase):
         ):
             self.assertIn(name, text)
         self.assertIn("Do not duplicate or weaken", text)
+        self.assertIn("se-sync-worktree", text)
+
+    def test_plan_is_an_alias_of_plan_loop(self) -> None:
+        plan = (ROOT / "skills" / "se-plan" / "SKILL.md").read_text()
+        loop = (ROOT / "skills" / "se-plan-loop" / "SKILL.md").read_text()
+        review = (ROOT / "skills" / "se-review-plan" / "SKILL.md").read_text()
+        self.assertIn("se-plan-loop", plan)
+        self.assertIn("se-review-plan", loop)
+        self.assertIn("se-challenge-scope", review)
+        self.assertIn("**Verdict:**", review)
+        self.assertIn("Do not edit", review)
+        self.assertNotIn("/tmp/revere-plan", loop)
+        self.assertIn("mktemp", loop)
+        self.assertNotIn("origin/main", loop)
+        self.assertNotIn("origin/main", review)
+
+    def test_publish_and_compact_are_portable_git_and_file_edits(self) -> None:
+        publish = (ROOT / "skills" / "se-publish" / "SKILL.md").read_text()
+        compact = (ROOT / "skills" / "se-compact-brief" / "SKILL.md").read_text()
+        reflect = (ROOT / "skills" / "se-reflect" / "SKILL.md").read_text()
+        self.assertIn("ledger: none", publish)
+        self.assertIn("origin/<default_branch>", publish)
+        self.assertNotIn("ledger_publish.py", publish)
+        self.assertIn("Preservation Contract", compact)
+        self.assertNotIn("ledger_edit.py", compact)
+        self.assertIn("Never publish, commit, push", compact)
+        self.assertIn("se-compact-brief", reflect)
+        self.assertNotIn("origin/main", publish)
+        self.assertNotIn("origin/main", compact)
+
+    def test_worktree_skills_use_bound_default_branch(self) -> None:
+        for name in (
+            "se-prep",
+            "se-sync-worktree",
+            "se-tidy-worktree",
+        ):
+            text = (ROOT / "skills" / name / "SKILL.md").read_text()
+            self.assertIn("origin/<default_branch>", text)
+            self.assertNotIn("origin/main", text)
+        sync = (ROOT / "skills" / "se-sync-worktree" / "SKILL.md").read_text()
+        self.assertIn("does not invoke `se-settle-worktree`", sync)
+        settle = (ROOT / "skills" / "se-settle-worktree" / "SKILL.md").read_text()
+        self.assertIn("settle_worktree.py", settle)
+        self.assertIn("se-commit", settle)
+        script = (
+            ROOT / "skills" / "se-settle-worktree" / "scripts" / "settle_worktree.py"
+        ).read_text()
+        self.assertNotIn("/private/tmp", script)
+        self.assertNotIn("revere", script.lower())
+        self.assertIn("slice-engineering", script)
+
+    def test_claude_md_template_is_a_thin_agents_wrapper(self) -> None:
+        text = (ROOT / "templates" / "CLAUDE.md").read_text()
+        self.assertIn("@AGENTS.md", text)
+        self.assertIn("CLAUDE_PROJECT_DIR", text)
+        self.assertIn("Do not write local memories", text)
+        self.assertNotIn("origin/main", text)
+        self.assertNotIn("revere-ledger", text)
 
     def test_review_skill_is_report_only(self) -> None:
         text = (ROOT / "skills" / "se-review" / "SKILL.md").read_text()

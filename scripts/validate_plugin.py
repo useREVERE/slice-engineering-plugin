@@ -193,6 +193,10 @@ def validate_template() -> None:
         fail("se-setup must copy missing remediation-plan.md")
     if "remediation-history.md" not in setup:
         fail("se-setup must copy missing remediation-history.md")
+    if "templates/CLAUDE.md" not in setup:
+        fail("se-setup must offer templates/CLAUDE.md")
+    if "Never overwrite an existing `CLAUDE.md`" not in setup:
+        fail("se-setup must refuse to overwrite existing CLAUDE.md")
 
 
 def validate_weekly_loop() -> None:
@@ -240,6 +244,112 @@ def validate_improve_skill_from_run() -> None:
         fail("Run evidence must include Cursor")
 
 
+def validate_plan_gate() -> None:
+    review = (ROOT / "skills/se-review-plan/SKILL.md").read_text()
+    if "se-challenge-scope" not in review:
+        fail("se-review-plan must invoke se-challenge-scope")
+    if "**Verdict:**" not in review:
+        fail("se-review-plan must emit a Farley verdict")
+    if "Do not edit" not in review:
+        fail("se-review-plan must be report-only")
+    if "origin/main" in review:
+        fail("se-review-plan must not hardcode origin/main")
+    loop = (ROOT / "skills/se-plan-loop/SKILL.md").read_text()
+    if "se-review-plan" not in loop:
+        fail("se-plan-loop must invoke se-review-plan")
+    if "se-execute" not in loop:
+        fail("se-plan-loop must hand off to se-execute")
+    if "/tmp/revere-plan" in loop:
+        fail("se-plan-loop must not use a product-specific temp path")
+    if "mktemp" not in loop:
+        fail("se-plan-loop must create a temp plan with mktemp")
+    if "XXXXXX" not in loop:
+        fail("se-plan-loop mktemp template must keep XXXXXX at the end")
+    plan = (ROOT / "skills/se-plan/SKILL.md").read_text()
+    if "se-plan-loop" not in plan:
+        fail("se-plan must compose se-plan-loop")
+    deliver = (ROOT / "skills/se-deliver/SKILL.md").read_text()
+    if "se-plan-loop" not in deliver:
+        fail("se-deliver must route through se-plan-loop")
+    if "se-review-plan" not in deliver:
+        fail("se-deliver must name se-review-plan")
+    if "se-sync-worktree" not in deliver:
+        fail("se-deliver must mention se-sync-worktree for stale checkouts")
+
+
+def validate_ledger_lifecycle() -> None:
+    publish = (ROOT / "skills/se-publish/SKILL.md").read_text()
+    if "ledger_publish.py" in publish:
+        fail("se-publish must not require ledger_publish.py")
+    if "never force-push" not in publish.lower():
+        fail("se-publish must forbid force-push")
+    if "ledger: none" not in publish:
+        fail("se-publish must stop when ledger is none")
+    if "origin/<default_branch>" not in publish:
+        fail("se-publish must use bound default_branch")
+    compact = (ROOT / "skills/se-compact-brief/SKILL.md").read_text()
+    if "ledger_edit.py" in compact:
+        fail("se-compact-brief must not require ledger_edit.py")
+    if "Preservation Contract" not in compact:
+        fail("se-compact-brief must keep the Preservation Contract")
+    if "Never publish, commit, push" not in compact:
+        fail("se-compact-brief must not publish")
+    if "se-review-brief" not in compact:
+        fail("se-compact-brief must hand off to se-review-brief")
+    reflect = (ROOT / "skills/se-reflect/SKILL.md").read_text()
+    if "se-compact-brief" not in reflect:
+        fail("se-reflect must point at se-compact-brief")
+
+
+def validate_worktrees() -> None:
+    for name in (
+        "se-prep",
+        "se-sync-worktree",
+        "se-settle-worktree",
+        "se-tidy-worktree",
+    ):
+        text = (ROOT / "skills" / name / "SKILL.md").read_text()
+        if "origin/main" in text:
+            fail(f"{name} must not hardcode origin/main")
+        if "origin/<default_branch>" not in text and name != "se-settle-worktree":
+            fail(f"{name} must use origin/<default_branch>")
+    sync = (ROOT / "skills/se-sync-worktree/SKILL.md").read_text()
+    if "does not invoke `se-settle-worktree`" not in sync:
+        fail("se-sync-worktree must not invoke settle")
+    script = ROOT / "skills/se-settle-worktree/scripts/settle_worktree.py"
+    if not script.is_file():
+        fail("missing se-settle-worktree checkpoint script")
+    script_text = script.read_text()
+    if "revere" in script_text.lower():
+        fail("settle_worktree.py must not contain Revere coupling")
+    if "/private/tmp" in script_text:
+        fail("settle_worktree.py must not write recovery notes to /private/tmp")
+    if "slice-engineering" not in script_text:
+        fail("settle_worktree.py must write notes under a plugin-owned path")
+
+
+def validate_claude_md_template() -> None:
+    path = ROOT / "templates" / "CLAUDE.md"
+    if not path.is_file():
+        fail("missing templates/CLAUDE.md")
+    text = path.read_text()
+    if "@AGENTS.md" not in text:
+        fail("CLAUDE.md template must wrap AGENTS.md")
+    if "CLAUDE_PROJECT_DIR" not in text:
+        fail("CLAUDE.md template must document hook invocation")
+    if "Do not write local memories" not in text:
+        fail("CLAUDE.md template must forbid local memories")
+    if "origin/main" in text:
+        fail("CLAUDE.md template must not hardcode origin/main")
+
+
+def validate_skills_do_not_hardcode_origin_main() -> None:
+    for directory in skill_dirs():
+        text = (directory / "SKILL.md").read_text()
+        if "origin/main" in text:
+            fail(f"{directory.name} must not hardcode origin/main")
+
+
 def validate_forbidden() -> None:
     skip_parts = {".git", "__pycache__"}
     skip_suffixes = {".pyc", ".pyo"}
@@ -266,6 +376,11 @@ def main() -> None:
     validate_template()
     validate_weekly_loop()
     validate_improve_skill_from_run()
+    validate_plan_gate()
+    validate_ledger_lifecycle()
+    validate_worktrees()
+    validate_claude_md_template()
+    validate_skills_do_not_hardcode_origin_main()
     validate_forbidden()
     print(f"ok {len(names)} skills, version {version}")
     return 0

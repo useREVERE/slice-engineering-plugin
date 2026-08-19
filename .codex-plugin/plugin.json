@@ -1,6 +1,6 @@
 {
   "name": "slice-engineering",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Brief thin slices, deliver through a review gate, and reflect so the next frontier is ready",
   "author": {
     "name": "Revere"
@@ -34,6 +34,7 @@
       "Brief the next thin slice",
       "Deliver the frontier",
       "Review this change as a ship gate",
+      "Publish the ledger brief",
       "Review the codebase for changeability",
       "Improve a skill from the last run"
     ],
