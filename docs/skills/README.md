@@ -10,13 +10,31 @@ the map.
 | `se-setup` | Yes | Bindings + missing doc homes |
 | `se-brief` | Optional write | Conversation or ledger |
 | `se-review-brief` | No | Plan-readiness |
-| `se-plan` | Temp write | Discarded after ship |
+| `se-plan-loop` | Temp write | Adaptive review; runs `se-review-plan` |
+| `se-plan` | Temp write | Alias of `se-plan-loop` |
+| `se-review-plan` | No | Farley verdict before execute |
 | `se-deliver` | Yes | Orchestrator |
 | `se-execute` | Yes | TDD |
 | `se-review` | No | Report only |
 | `se-review-loop` | Yes | Gate |
 | `se-ship` | Yes | Uses bindings |
-| `se-reflect` | Yes | Evidence + frontier |
+| `se-reflect` | Yes | Evidence + frontier; may compact |
+
+## Ledger
+
+| Skill | Side effects | Notes |
+| --- | --- | --- |
+| `se-publish` | Yes | Named paths; never force-push |
+| `se-compact-brief` | Brief edit | No commit/push; then cold `se-review-brief` |
+
+## Worktrees
+
+| Skill | Side effects | Notes |
+| --- | --- | --- |
+| `se-prep` | Yes | Primary `<default_branch>` hygiene |
+| `se-sync-worktree` | Yes | Does not invoke settle |
+| `se-settle-worktree` | Maybe | Commit, checkpoint, or stop |
+| `se-tidy-worktree` | Yes | After ship; never force-delete |
 
 ## Around the loop
 

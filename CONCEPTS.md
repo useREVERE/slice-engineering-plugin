@@ -18,18 +18,29 @@ and an optional hypothesis when the value is genuinely uncertain.
 
 A **plan** is the how for one slice. It is a temp file. It is discarded after
 the slice ships. Plans that become the system of record rot, and then agents
-implement against fiction.
+implement against fiction. `/se-plan-loop` reviews that temp plan
+(`/se-review-plan`) at a depth that matches the work before `/se-execute`.
 
 When work must survive a session or coordinate across agents, the brief lives
 in a **ledger arc**. The arc has a **frontier**: the next undelivered slice.
 `/se-deliver` runs against that frontier. It does not silently pick a
-different slice.
+different slice. `/se-publish` is the explicit commit-and-push verb for
+named ledger artifacts. `/se-compact-brief` shrinks a multi-slice arc after
+ship so the next session can plan the frontier without carrying obsolete
+specs.
 
 ## Skills compose
 
 `/se-deliver` is an orchestrator. Each phase skill is the source of truth for
 that phase. Duplicating a gate inside the orchestrator is how gates weaken.
 If a phase needs to change, change the phase skill.
+
+Git worktrees are a binding, not a default. When `worktrees: true`,
+`/se-prep` aligns the primary default branch, `/se-sync-worktree` brings a
+clean checkout current before planning, `/se-settle-worktree` preserves
+dirty trees without discarding work, and `/se-tidy-worktree` removes a
+shipped task worktree. When `worktrees: false`, skills must not create
+worktrees.
 
 This is also why review cannot edit, and why shipping cannot hide inside
 implementation. The reviewer must not be the person who just wrote the code,
