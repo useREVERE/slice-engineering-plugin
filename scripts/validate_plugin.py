@@ -218,9 +218,37 @@ def validate_weekly_loop() -> None:
         fail("agent-conventions must define Assessor label")
 
 
+def validate_improve_skill_from_run() -> None:
+    skill = (ROOT / "skills/se-improve-skill-from-run/SKILL.md").read_text()
+    if "Do not edit any skill file" not in skill:
+        fail("se-improve-skill-from-run must be review-only until approval")
+    if "awaiting approval" not in skill:
+        fail("se-improve-skill-from-run must stop for proposal approval")
+    if "origin/main" in skill:
+        fail("se-improve-skill-from-run must not hardcode origin/main")
+    if "make entire-enable" in skill:
+        fail("se-improve-skill-from-run must not require Entire enablement")
+    exporter = (
+        ROOT / "skills/se-improve-skill-from-run/scripts/export_claude_run.sh"
+    )
+    if not exporter.is_file():
+        fail("missing Claude compact-run exporter")
+    conventions = (ROOT / "skills/_shared/agent-conventions.md").read_text()
+    if "Run evidence" not in conventions:
+        fail("agent-conventions must define Run evidence")
+    if "Cursor" not in conventions.split("## Run evidence", 1)[-1]:
+        fail("Run evidence must include Cursor")
+
+
 def validate_forbidden() -> None:
+    skip_parts = {".git", "__pycache__"}
+    skip_suffixes = {".pyc", ".pyo"}
     for path in ROOT.rglob("*"):
-        if not path.is_file() or ".git" in path.parts:
+        if not path.is_file():
+            continue
+        if any(part in skip_parts for part in path.parts):
+            continue
+        if path.suffix in skip_suffixes:
             continue
         relative = str(path.relative_to(ROOT))
         if relative in ALLOWED_FORBIDDEN_RELATIVE:
@@ -237,6 +265,7 @@ def main() -> None:
     validate_catalog(names)
     validate_template()
     validate_weekly_loop()
+    validate_improve_skill_from_run()
     validate_forbidden()
     print(f"ok {len(names)} skills, version {version}")
     return 0

@@ -99,6 +99,21 @@ class PluginContractTests(unittest.TestCase):
         self.assertIn("remediation-history.md", text)
         self.assertNotIn("origin/main", text)
 
+    def test_improve_skill_from_run_is_two_phase(self) -> None:
+        text = (
+            ROOT / "skills" / "se-improve-skill-from-run" / "SKILL.md"
+        ).read_text()
+        self.assertIn("Do not edit any skill file", text)
+        self.assertIn("awaiting approval", text)
+        self.assertNotIn("origin/main", text)
+        self.assertNotIn("make entire-enable", text)
+        self.assertIn("export_claude_run.sh", text)
+        conventions = (
+            ROOT / "skills" / "_shared" / "agent-conventions.md"
+        ).read_text()
+        self.assertIn("Run evidence", conventions)
+        self.assertIn("current conversation", conventions.lower())
+
 
 if __name__ == "__main__":
     unittest.main()

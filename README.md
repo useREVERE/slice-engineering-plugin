@@ -125,6 +125,7 @@ weekly:  review-codebase  →  (pause)  →  dated report + plan
 | [`/se-investigate`](skills/se-investigate/SKILL.md) | Evidence-driven diagnosis with a deliver-ready handoff |
 | [`/se-prototype`](skills/se-prototype/SKILL.md) | Throwaway prototype to answer a state or UI question |
 | [`/se-create-skill`](skills/se-create-skill/SKILL.md) | Author a new skill without recreating provider drift |
+| [`/se-improve-skill-from-run`](skills/se-improve-skill-from-run/SKILL.md) | Two-phase, evidence-backed skill improvement from one real run |
 | [`/se-review-codebase`](skills/se-review-codebase/SKILL.md) | Farley-lens sweep: dated report, pause, then remediation plan |
 | [`/se-deliver-remediation-plan`](skills/se-deliver-remediation-plan/SKILL.md) | Drain the pending queue, one `/se-deliver` per item |
 
@@ -162,6 +163,14 @@ Once a week, to keep the tree changeable:
 
 The review pauses before writing `remediation-plan.md`. Drain the queue
 only after that triage.
+
+After a skill run felt sticky:
+
+```text
+/se-improve-skill-from-run se-deliver
+```
+
+That skill reviews first and applies nothing until you approve proposal IDs.
 
 ## What this plugin does not include
 

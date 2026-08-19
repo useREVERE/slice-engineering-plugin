@@ -18,6 +18,20 @@ prompt or harness.
 | Exploration subagent | cheaper available tier | cheaper available tier (Sonnet-class) | cheaper available tier |
 | Adversarial judgment | same tier as the lead, fresh context | inherit lead model, fresh context | inherit lead model, fresh context |
 
+## Run evidence
+
+`se-improve-skill-from-run` reads compact indexes, never raw transcripts.
+
+| Provider | Default source | Compact exporter |
+| --- | --- | --- |
+| Codex | Current conversation, a user-supplied path, or a session recorder already on `PATH` | None bundled. Do not install a recorder as part of the skill. |
+| Claude Code | `~/.claude/projects/<encoded-cwd>/*.jsonl` | `skills/se-improve-skill-from-run/scripts/export_claude_run.sh` |
+| Cursor | Current conversation; else a user-supplied path | None bundled. Cloud-agent transcript files are valid input if already on disk. |
+
+Default compact indexes: `metadata.json`, `user-messages.txt`,
+`agent-messages.txt`, `tool-calls.tsv` or `function-calls.tsv`,
+`tool-failures.txt`, and `skill-spans.txt` when attribution exists.
+
 The primary checkout stays on the host `default_branch` when worktrees are
 enabled. Derive locations with `git worktree list` and
 `git rev-parse --show-toplevel`. Never embed machine-specific absolute paths
