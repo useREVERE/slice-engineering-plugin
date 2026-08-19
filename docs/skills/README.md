@@ -28,5 +28,6 @@ the map.
 | `se-investigate` | No | |
 | `se-prototype` | Write (throwaway) | |
 | `se-create-skill` | Yes | |
+| `se-improve-skill-from-run` | After approval | Two-phase; compact indexes only |
 | `se-review-codebase` | Docs only | Dated report + plan after pause |
 | `se-deliver-remediation-plan` | Yes | One `se-deliver` per pending item |
