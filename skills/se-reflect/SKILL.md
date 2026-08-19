@@ -44,8 +44,12 @@ If `ledger` is `none` or the work was a conversation brief, write the
 reflection in the conversation. Do not create a ledger.
 
 If a ledger is bound, append a delivery-record entry to the arc brief and
-update `Frontier`. Do not rewrite earlier delivery entries. Do not compact
-history unless the user asks.
+update `Frontier`. Do not rewrite earlier delivery entries.
+
+When a multi-slice arc has accumulated shipped specifications, invoke
+`se-compact-brief` so the next session can plan the frontier without
+carrying obsolete history. Do not compact a conversation brief. Do not
+run `se-publish` from reflection — publishing is an explicit user verb.
 
 There is no guarded external writer in this plugin. Write the brief file
 directly and keep the complete intended document in working context so a

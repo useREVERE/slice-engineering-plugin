@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.5.0
+
+Plan readiness, ledger lifecycle, worktree hygiene, and a Claude wrapper.
+
+- `/se-review-plan` — Farley verdict (`ready` / `ready after minor edits` /
+  `not ready`) plus `/se-challenge-scope`
+- `/se-plan-loop` — adaptive review tiers; `/se-plan` is now an alias
+- `/se-deliver` runs `/se-plan-loop` before `/se-execute`
+- `/se-publish` — named ledger paths, ordinary git, never force-push
+- `/se-compact-brief` — shrink a multi-slice arc in place; then cold
+  `/se-review-brief`
+- `/se-prep`, `/se-sync-worktree`, `/se-settle-worktree`, `/se-tidy-worktree`
+  — portable worktree cycle using bound `default_branch`
+- `templates/CLAUDE.md` — thin `@AGENTS.md` wrapper; `/se-setup` offers it
+  when missing and never overwrites
+
 ## 0.4.0
 
 Evidence-backed skill improvement.

@@ -21,7 +21,7 @@ From the repository root (`git rev-parse --show-toplevel`):
 - default branch from `origin/HEAD`, else `main`
 - existing test entry points: `Makefile` (`test` target), `package.json`
   scripts, `pyproject.toml`, `go.mod`, `Cargo.toml`
-- whether `AGENTS.md` already exists
+- whether `AGENTS.md` or `CLAUDE.md` already exists
 - whether `docs/engineering-guide.md`, `docs/engineering-philosophy.md`,
   `docs/sops/`, `docs/adrs/`, `docs/completed/`, `docs/tech-debt/`,
   `docs/ledger/`, or `.slice-engineering/` already exist
@@ -95,12 +95,19 @@ boy scouting, or placement into it. Add at most a one-line pointer to
 `.slice-engineering/config.yaml` if that pointer is absent — and only if
 the user wants the pointer.
 
-### AGENTS.md
+### AGENTS.md and CLAUDE.md
+
+These sit beside `templates/docs/`; they are optional host starters, not
+documentation homes.
 
 If `AGENTS.md` is missing, offer `templates/AGENTS.md` and write it only
 when the user wants a starter. If it exists, add at most a short pointer
 to `.slice-engineering/config.yaml` and `docs/sops/documentation-placement.md`
 when those files now exist. Do not rewrite their rules.
+
+If `CLAUDE.md` is missing, offer `templates/CLAUDE.md` the same way: a thin
+`@AGENTS.md` wrapper for Claude Code mechanics. Write it only when the user
+wants a starter. Never overwrite an existing `CLAUDE.md`.
 
 ## Output
 

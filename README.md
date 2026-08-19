@@ -81,8 +81,9 @@ Slice Engineering makes that the unit of work:
 - independently testable
 - finishable in one focused session
 
-Skills compose. `/se-deliver` orchestrates `/se-plan`, `/se-execute`,
-`/se-review-loop`, `/se-ship`, and `/se-reflect`. It does not absorb them.
+Skills compose. `/se-deliver` orchestrates `/se-plan-loop` (which runs
+`/se-review-plan`), `/se-execute`, `/se-review-loop`, `/se-ship`, and
+`/se-reflect`. It does not absorb them.
 A review skill cannot edit. A planning skill cannot ship. Prose is a
 suggestion; tool boundaries are the guarantee.
 
@@ -97,11 +98,14 @@ not dumped into a single solutions folder.
 
 ```text
 brief → review-brief → deliver
-                          ├─ plan          (temp)
+                          ├─ plan-loop     (temp + review-plan)
                           ├─ execute       (TDD)
                           ├─ review-loop   (fresh-context gate)
                           ├─ ship          (bindings)
                           └─ reflect       (evidence + next frontier)
+
+ledger:  compact-brief → publish
+worktrees (when bound):  prep → sync → settle → tidy
 
 weekly:  review-codebase  →  (pause)  →  dated report + plan
          deliver-remediation-plan     →  one se-deliver per pending item
@@ -112,8 +116,16 @@ weekly:  review-codebase  →  (pause)  →  dated report + plan
 | [`/se-setup`](skills/se-setup/SKILL.md) | Bind this repo and scaffold missing docs homes |
 | [`/se-brief`](skills/se-brief/SKILL.md) | Shape one thin slice as a quick brief or a durable ledger arc |
 | [`/se-review-brief`](skills/se-review-brief/SKILL.md) | Pressure-test a brief for plan-readiness or delivery-record fidelity |
-| [`/se-plan`](skills/se-plan/SKILL.md) | Write a throwaway implementation plan for one slice |
-| [`/se-deliver`](skills/se-deliver/SKILL.md) | Orchestrate plan → execute → review → ship → reflect |
+| [`/se-plan-loop`](skills/se-plan-loop/SKILL.md) | Temp plan with adaptive Farley review before execute |
+| [`/se-plan`](skills/se-plan/SKILL.md) | Alias of `/se-plan-loop` |
+| [`/se-review-plan`](skills/se-review-plan/SKILL.md) | Report-only plan readiness: ready / ready after minor edits / not ready |
+| [`/se-deliver`](skills/se-deliver/SKILL.md) | Orchestrate plan-loop → execute → review → ship → reflect |
+| [`/se-publish`](skills/se-publish/SKILL.md) | Commit and non-force-push named ledger artifacts |
+| [`/se-compact-brief`](skills/se-compact-brief/SKILL.md) | Shrink a multi-slice arc after ship; does not publish |
+| [`/se-prep`](skills/se-prep/SKILL.md) | Align the primary default branch before worktrees |
+| [`/se-sync-worktree`](skills/se-sync-worktree/SKILL.md) | Fast-forward or rebase a clean checkout onto the default branch |
+| [`/se-settle-worktree`](skills/se-settle-worktree/SKILL.md) | Preserve dirty trees: commit, checkpoint, or stop |
+| [`/se-tidy-worktree`](skills/se-tidy-worktree/SKILL.md) | Remove a shipped task worktree without force |
 | [`/se-execute`](skills/se-execute/SKILL.md) | Implement with TDD and scoped commits |
 | [`/se-review`](skills/se-review/SKILL.md) | Fresh-context, report-only review of a diff |
 | [`/se-review-loop`](skills/se-review-loop/SKILL.md) | Review → fix → re-review until `ship it` or a bounded stop |
@@ -171,6 +183,23 @@ After a skill run felt sticky:
 ```
 
 That skill reviews first and applies nothing until you approve proposal IDs.
+
+When a multi-slice ledger arc has shipped several times:
+
+```text
+/se-compact-brief
+/se-review-brief
+/se-publish
+```
+
+When bindings set `worktrees: true`:
+
+```text
+/se-prep
+/se-sync-worktree
+/se-deliver
+/se-tidy-worktree
+```
 
 ## What this plugin does not include
 

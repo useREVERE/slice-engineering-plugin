@@ -17,6 +17,13 @@ is missing. It never overwrites a file that already exists.
 | `tech-debt/remediation-history.md` | `docs/tech-debt/remediation-history.md` | Missing. Closed-item archive. **Never overwrite**. |
 | `ledger/README.md` | `<ledger_root>/README.md` | Missing and `ledger` is `in-repo` |
 
+Optional starters beside this directory (not copied unless offered):
+
+| Template | Host path | When to create |
+| --- | --- | --- |
+| `../AGENTS.md` | `AGENTS.md` | Missing, and the user wants a starter |
+| `../CLAUDE.md` | `CLAUDE.md` | Missing, and the user wants a Claude Code wrapper |
+
 Do not copy plugin `CONCEPTS.md` or skill files into the host. Workflow
 design stays in the plugin. The host gets a pointer from
 `docs/engineering-guide.md` and `AGENTS.md`.
