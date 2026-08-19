@@ -32,6 +32,8 @@ Treat `$ARGUMENTS` as the skill name and purpose.
 2. Run `python3 scripts/validate_plugin.py`.
 3. Do not add README, changelog, or install guides inside the skill
    folder.
+4. After a real run exposes friction, use `se-improve-skill-from-run`
+   rather than expanding the skill speculatively.
 
 ## Output
 
