@@ -1,6 +1,6 @@
 ---
 name: se-deliver
-description: Orchestrate plan, execute, review-loop, ship, and reflect for one slice — or slice-by-slice across a ledger arc. Use when a brief or frontier is ready to implement and ship.
+description: Orchestrate plan-loop, execute, review-loop, ship, and reflect for one slice — or slice-by-slice across a ledger arc. Use when a brief or frontier is ready to implement and ship.
 disable-model-invocation: true
 ---
 
@@ -36,17 +36,36 @@ Default: **normal**.
 - Reflection precedes declaring a ledger slice complete.
 - Do not create worktrees unless bindings set `worktrees: true`.
 
+## Freshness
+
+If the checkout may be stale, invoke `se-sync-worktree` before planning.
+If sync stops because the tree is dirty, invoke `se-settle-worktree` only
+when the changes are task-owned, then rerun `se-sync-worktree` from the
+beginning. Do not stash inside this orchestrator.
+
+When `worktrees: true`, the primary checkout should already have been
+prepared with `se-prep`; this skill still does not create worktrees. After
+ship, `se-tidy-worktree` is opt-in cleanup of the current task worktree —
+do not run it unless the user asked and every tidy safety check passes.
+
+When `worktrees: false`, do not run `se-prep` or `se-tidy-worktree` as
+mandatory phases.
+
 ## Control flow
 
 ```text
-se-plan → se-execute → se-review-loop → se-ship → se-reflect
+se-plan-loop → se-execute → se-review-loop → se-ship → se-reflect
 ```
+
+`se-plan-loop` runs `se-review-plan` at the tier that protects the work.
+`se-plan` is an alias of `se-plan-loop`; do not use a lighter planning
+path.
 
 Route from observed state:
 
 | Observed state | Action |
 | --- | --- |
-| No accepted plan | `se-plan` |
+| No accepted plan | `se-plan-loop` |
 | Plan ready, implementation absent | `se-execute` |
 | Implementation present, review not converged | `se-review-loop` |
 | `ship it`, clean tree | `se-ship` |

@@ -21,7 +21,7 @@ Read `skills/_shared/bindings.md`,
 `skills/_shared/agent-conventions.md`, host `AGENTS.md`, the engineering
 guide, `se-deliver`, and the plan before starting.
 
-When the harness cannot nest a skill call, compose `se-plan` →
+When the harness cannot nest a skill call, compose `se-plan-loop` →
 `se-execute` → `se-review-loop` → `se-ship` → `se-reflect` for that
 item. Do not duplicate or weaken those skills.
 

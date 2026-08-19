@@ -59,9 +59,30 @@ When `ledger` is `in-repo`:
 <ledger_root>/README.md
 ```
 
+Optional, only when the host uses them:
+
+```text
+<ledger_root>/arcs/<slug>/assets/
+<ledger_root>/investigations/YYYY-MM-DD-<slug>.md
+```
+
 When `ledger` is `external`, use `external_ledger_path` the same way.
 When `ledger` is `none`, keep briefs in the conversation. Do not create a
 ledger directory.
+
+`se-publish` commits and non-force-pushes named ledger paths.
+`se-compact-brief` edits the bound brief in place and does not publish.
+
+## Worktrees
+
+When `worktrees` is `true`, delivery sessions branch from a prepared
+primary checkout. Use `se-prep` on the primary, `se-sync-worktree` before
+planning or delivery, `se-settle-worktree` for dirty trees, and
+`se-tidy-worktree` after ship. Task worktree roots and branch prefixes
+come from `skills/_shared/agent-conventions.md`.
+
+When `worktrees` is `false`, do not create worktrees. `se-sync-worktree`
+may still fast-forward or rebase the current checkout.
 
 ## Skill invocation
 
